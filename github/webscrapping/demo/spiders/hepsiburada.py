@@ -10,11 +10,11 @@ class HepsiburadaSpider(scrapy.Spider):
     def start_requests(self):	
         with open("/Users/tunab/Downloads/Newfolder/demo/csv/hepsiburada.csv", "rU") as f:
             reader=csv.DictReader(f)
+            i=1
             for row in reader:
                 url=row['url']
-                i=1
-                page=i
-                link_urls = [url.format(i) for i in range(i,50)]	
+                link_urls = [url.format(i) for i in range(i,50)]
+                page = i
                 for link_url in link_urls:
                     request=Request(link_url, callback=self.parse_product_pages, meta={'page': page})
                     page+=1
@@ -28,12 +28,12 @@ class HepsiburadaSpider(scrapy.Spider):
         #f.close()
         for product_content in content.xpath('./li[@class="productListContent-item"]'):
             #item['productId']=product_content.xpath('.//@id').get()+'_'+str(response.meta['category'])+'_hepsiburada'
-            item['productName']=product_content.xpath('.//*[@data-test-id="product-card-name"]/text()').get()		
+            item['productName']=product_content.xpath('.//*[@data-test-id="product-card-name"]/text()').get()
             item['price']=product_content.xpath('.//*[@data-test-id="price-current-price"]/text()').get()
-            item['productLink']=product_content.xpath('.//a/@href').get()	
-            #item['website']="Hepsiburada"	
-            if item['productName']==None:
-                    break
+            item['productLink']=product_content.xpath('.//a/@href').get()
+            #item['website']="Hepsiburada"
+            if item['productName'] is None:
+                break
             yield (item)
             
     def parse(self, response):
