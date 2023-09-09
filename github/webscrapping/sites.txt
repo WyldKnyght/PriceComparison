@@ -1,0 +1,4 @@
+gittigidiyor 	max 99 sayfa 	boş sayfalar
+amazon 		max 400 sayfa 	boş sayfalar
+n11 		max 50 sayfa 	boş sayfalar
+hespiburada 	max 50 sayfa 	redirect
